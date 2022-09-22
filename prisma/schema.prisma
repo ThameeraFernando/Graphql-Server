@@ -17,6 +17,8 @@ model Post{
   publish   Boolean   @default(false)
   createdAt DateTime  @default(now())
   upadtedAt DateTime  @default(now())
+  autherId  Int
+  auther    User      @relation(fields: [autherId],references:[id])       
 }
 
 model User{
@@ -26,11 +28,17 @@ model User{
   password  String 
   createdAt DateTime  @default(now())
   upadtedAt DateTime  @default(now())
+  posts     Post[]
+  profile   Profile?       
+
 }
 
 model Profile{
   id        Int       @id     @default(autoincrement())
-  bio     String    
+  bio       String    
   createdAt DateTime  @default(now())
   upadtedAt DateTime  @default(now())
+  userId    Int       @unique
+  user      User      @relation(fields: [userId],references:[id])       
+
 }
