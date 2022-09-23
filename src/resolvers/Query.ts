@@ -16,6 +16,14 @@ const Query = {
       ],
     });
   },
+  me: async (_: any, __: any, { prisma, userInfo }: Context) => {
+    if (!userInfo?.user) return null;
+    return prisma.user.findUnique({
+      where:{
+        id:userInfo.user
+      }
+    })
+  },
 };
 
 export default Query;
