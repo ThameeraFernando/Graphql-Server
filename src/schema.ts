@@ -3,8 +3,9 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   type Query {
     hello: String!
-    posts: [Post!]!
+    posts(take: Int!, skip: Int!): [Post!]!
     me: User
+    profile(userId: ID!): Profile
   }
   type Mutation {
     postCreate(input: postInput): PostPayLoad!
@@ -26,18 +27,18 @@ const typeDefs = gql`
     content: String!
     createdAt: String!
     published: Boolean!
+    autherId: ID!
     user: User!
   }
   type User {
     id: ID!
     name: String!
     email: String!
-    profile: Profile!
-    posts: [Post!]!
+    posts(take: Int!, skip: Int!): [Post!]!
   }
   type Profile {
     id: ID!
-    bio: String!
+    bio: String
     user: User!
   }
   type UserError {
